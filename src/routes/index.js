@@ -61,6 +61,27 @@ router.get('/profile',async (req,res)=>{
         const profileData= await instagram.get('users/self')
         const media= await instagram.get('users/self/media/recent')
         const megusta= media.data[0].likes.count
+       // console.log(media.data)
+        //media.data.forEach(function(element){
+          //  console.log(element)
+       // })
+       console.log(profileData.data.counts.followed_by)
+       var seguidores=profileData.data.counts.followed_by
+       var sumatoria=0
+       var cantidad=media.data.length
+  
+      // console.log(media.data)
+       console.log(cantidad)
+        for(const prop in media.data){
+            console.log(`${prop}= ${media.data[prop].likes.count}`)
+            sumatoria+=media.data[prop].likes.count
+           // console.log(sumatoria)
+        }  
+
+        var promlikes=sumatoria/cantidad
+        console.log('promedio de likes: ',promlikes)        
+        var efic=promlikes/seguidores
+        console.log(Math.round(efic*100,2),'%')
         res.render('profile',{user:profileData.data,posts:media.data,megustas:megusta})
 
     }catch(e){
