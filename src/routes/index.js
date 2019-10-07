@@ -60,8 +60,8 @@ router.get('/profile',async (req,res)=>{
     try{
         const profileData= await instagram.get('users/self')
         const media= await instagram.get('users/self/media/recent')
-        console.log(media.data[0].likes.count)
-        res.render('profile',{user:profileData.data,posts:media.data})
+        const megusta= media.data[0].likes.count
+        res.render('profile',{user:profileData.data,posts:media.data,megustas:megusta})
 
     }catch(e){
         console.log(e)
