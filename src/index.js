@@ -20,6 +20,14 @@ app.use(session({
     signed: true
 }))
 
+//convertir fecha  de formato timestand en entendible
+app.use((req,res,next)=>{
+    res.locals.formatDate = (date)=>{
+        let myDate = new Date(date*1000)
+        return myDate.toLocaleString()
+    }
+    next()
+})
 
 //routes
 app.use(require('./routes/index'))

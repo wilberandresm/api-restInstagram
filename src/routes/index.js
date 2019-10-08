@@ -65,6 +65,7 @@ router.get('/profile',async (req,res)=>{
         //media.data.forEach(function(element){
           //  console.log(element)
        // })
+    
        console.log(profileData.data.counts.followed_by)
        var seguidores=profileData.data.counts.followed_by
        var sumatoria=0
@@ -80,9 +81,11 @@ router.get('/profile',async (req,res)=>{
 
         var promlikes=sumatoria/cantidad
         console.log('promedio de likes: ',promlikes)        
-        var efic=promlikes/seguidores
-        console.log(Math.round(efic*100,2),'%')
-        res.render('profile',{user:profileData.data,posts:media.data,megustas:megusta})
+        var efic=((promlikes/seguidores)*100).toFixed(2)
+        //console.log(efic.toFixed(2),'%')
+        console.log(efic)
+        const estd={promlikes,efic}
+        res.render('profile',{user:profileData.data,posts:media.data,estadisticas:estd})
 
     }catch(e){
         console.log(e)

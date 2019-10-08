@@ -8,7 +8,10 @@
                     <h5 class="card-title"><%= user.full_name %></h5>
                     <%= user.username %>
                     <%= user.bio %>
-                    <%= megustas %>
+                    <hr>
+                    Promedio de likes por publicación(basado en los 20 post más recientes): <%= estadisticas.promlikes %> likes
+                    <hr>
+                    Eficiencia del perfil: <%= estadisticas.efic %> %
                     <hr>
                     <%= user.counts.media %> <i class="fa fa-camera"></i>
                     <%= user.counts.follows %> <i class="fa fa-heart"></i>
@@ -29,6 +32,7 @@
                         <div class="card-body">
                             <p>Posted by <%= post.user.full_name %></p>
                             <p>Likes: <%= post.likes.count %></p>
+                            <p> <%= formatDate(post.created_time) %> </p>
 
                         </div>
 
