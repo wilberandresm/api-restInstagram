@@ -28,7 +28,7 @@
             <% posts.forEach(function(post){ %>
                 <div class="col-md-4">
                     <div class="card mb-2">
-                        <img src="<%= post.images.thumbnail.url %>" class="card-img-top">
+                        <img src="<%= post.images.standard_resolution.url %>" class="card-img-top">
                         <div class="card-body">
                             <p>Posted by <%= post.user.full_name %></p>
                             <p>Likes: <%= post.likes.count %></p>

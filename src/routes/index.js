@@ -37,6 +37,7 @@ router.get('/handleauth', async (req,res)=>{
         const data = await instagram.authorizeUser(code, redirectUri);
         // data.access_token contain the user access_token
         //almacenar el acces_token
+        //Aqui se almacena el usuario
         req.session.access_token=data.access_token
         req.session.user_id=data.user.id
         //guardar el acces token
@@ -52,7 +53,12 @@ router.get('/login',(req,res)=>{
     res.redirect('/auth/instagram')
 
 })
-router.get('/logout',()=>{
+router.get('/logout',(req,res)=>{
+    delete req.session.access_token
+    delete req.session.user_id
+
+    //delete instagram.config.accessToken
+    res.redirect('/')
     
 })
 router.get('/profile',async (req,res)=>{
@@ -72,6 +78,7 @@ router.get('/profile',async (req,res)=>{
        var cantidad=media.data.length
   
       // console.log(media.data)
+      //console.log(media.data[0].images)
        console.log(cantidad)
         for(const prop in media.data){
             console.log(`${prop}= ${media.data[prop].likes.count}`)
@@ -83,7 +90,7 @@ router.get('/profile',async (req,res)=>{
         console.log('promedio de likes: ',promlikes)        
         var efic=((promlikes/seguidores)*100).toFixed(2)
         //console.log(efic.toFixed(2),'%')
-        console.log(efic)
+        console.log(efic,' %')
         const estd={promlikes,efic}
         res.render('profile',{user:profileData.data,posts:media.data,estadisticas:estd})
 
